@@ -1,11 +1,22 @@
 {
   "name": "drive-downloader",
   "version": "1.0.0",
-  "description": "",
+  "description": "Helps to create download link on google drive video files",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Maaz",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allw-apps/drive-downloader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/allw-apps/drive-downloader/issues"
+  },
+  "homepage": "https://github.com/allw-apps/drive-downloader#readme",
+  "dependencies": {
+    "@types/gapi": "0.0.39"
+  }
 }
