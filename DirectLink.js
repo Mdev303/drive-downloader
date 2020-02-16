@@ -6,7 +6,7 @@ class DirectLink {
     CLIENT_ID = '764781418716-sjfvoh4fpou2jbqu7v568e32dqu2genv.apps.googleusercontent.com';
     API_KEY = 'AIzaSyDJZ-XjiaxW5nWtFvZT8iMTS-jEFhkJ71Y';
     DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
-    SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+    SCOPES = 'https://www.googleapis.com/auth/drive.appfolder';
 
     /**
      * Calling initialisation function with auth parameter
@@ -69,7 +69,7 @@ class DirectLink {
      listFiles = async () => {
         const response = await gapi.client.drive.files.list({
             'pageSize': 10,
-            'fields': "nextPageToken, files(id, name)"
+            'fields': "*"
         });
         const files = response.result.files;
         console.log(files);
