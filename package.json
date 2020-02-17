@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/allw-apps/drive-downloader#readme",
   "dependencies": {
-    "@types/gapi": "0.0.39"
+    "@types/gapi": "0.0.39",
+    "@types/google.picker": "0.0.34"
   }
 }
