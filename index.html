@@ -15,7 +15,6 @@
             const scope = ['https://www.googleapis.com/auth/drive.appfolder'];
             let pickerApiLoaded = false;
             let oauthToken;
-            let callbackFnc;
             /**
              * Initialize the picker will be called per the SDK
              */
@@ -38,7 +37,7 @@
                         'client_id': clientId,
                         'scope': scope,
                         'immediate': false,
-                        'authuser': 1
+                        //'authuser': 1
                     },
                     this.handleAuthResult);
             }
