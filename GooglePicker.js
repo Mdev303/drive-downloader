@@ -77,6 +77,6 @@ function pickerCallback(data) {
         var doc = data[google.picker.Response.DOCUMENTS][0];
         id = doc[google.picker.Document.ID];
     }
-    const message = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=AIzaSyBFHimHWDyLOtcNJjA268KwRLhsBuckUxc`;
+    const message = `https://content.googleapis.com/drive/v2/files/${id}?key=AIzaSyBFHimHWDyLOtcNJjA268KwRLhsBuckUxc&alt=media&source=downloadUrl`;
     copyToClipboard(message);
 }
