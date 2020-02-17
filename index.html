@@ -9,11 +9,21 @@
     <body>
         <div id="result"></div>
         <script>
+            const picker = new GooglePicker(pickerCallback);
+
+            /**
+             * Initialize the picker will be called per the SDK
+             */
             function loadPicker() {
-                const picker = new GooglePicker();
-                console.log('called');
                 gapi.load('auth', {'callback': picker.onAuthApiLoad});
                 gapi.load('auth', {'callback': picker.onPickerApiLoad});
+            }
+
+            function pickerCallback (data) {
+                if (data.action === google.picker.Action.PICKED) {
+                    const fileId = data.docs[0].id;
+                    alert('The user selected: ' + fileId);
+                }
             }
         </script>
         <!-- The Google API Loader script. -->

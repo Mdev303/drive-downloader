@@ -10,17 +10,11 @@ class GooglePicker {
     scope = ['https://www.googleapis.com/auth/drive.appfolder'];
     pickerApiLoaded = false;
     oauthToken;
+    callbackFnc;
 
-    constructor () {
+    constructor (callback) {
+        this.callbackFnc = callback;
     }
-
-    /**
-     * Initialize the picker will be called per the SDK
-     */
-    loadPicker = () => {
-        gapi.load('auth', {'callback': this.onAuthApiLoad});
-        gapi.load('picker', {'callback': this.onPickerApiLoad});
-    };
 
     onAuthApiLoad = () => {
         console.log('on auth claled');
@@ -59,16 +53,9 @@ class GooglePicker {
                 .addView(view)
                 .addView(new google.picker.DocsUploadView())
                 .setDeveloperKey(this.developerKey)
-                .setCallback(this.pickerCallback)
+                .setCallback(this.callbackFnc)
                 .build();
             picker.setVisible(true);
-        }
-    }
-
-    pickerCallback(data) {
-        if (data.action === google.picker.Action.PICKED) {
-            const fileId = data.docs[0].id;
-            alert('The user selected: ' + fileId);
         }
     }
 }
