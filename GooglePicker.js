@@ -4,9 +4,9 @@ class GooglePicker {
      * Replace with your credentials
      * @type {string, boolean}
      */
-    developerKey = 'AIzaSyDdAZpO8pm1smUurUTfiyo-BGEnpHCweoI';
-    clientId = '141211420870-fd3ktu1879c2p6u4l6rd4upgafj5clqs.apps.googleusercontent.com';
-    appId = '141211420870';
+    developerKey = 'AIzaSyCzVvGJh74YBCe0XLRx3rSbiviB_zvugLE';
+    clientId = '764781418716-tgrmk858t8ktlaiaen6ha7f8a3l9bt14.apps.googleusercontent.com';
+    appId = '764781418716';
     scope = ['https://www.googleapis.com/auth/drive.appfolder'];
     pickerApiLoaded = false;
     oauthToken;
