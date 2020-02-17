@@ -42,7 +42,7 @@ class GooglePicker {
     createPicker = () => {
         if (this.pickerApiLoaded && this.oauthToken) {
             const view = new google.picker.View(google.picker.ViewId.DOCS);
-            view.setMimeTypes("video/mp4");
+            //view.setMimeTypes("video/mp4");
             const picker = new google.picker.PickerBuilder()
                 .enableFeature(google.picker.Feature.NAV_HIDDEN)
                 .enableFeature(google.picker.Feature.SUPPORT_TEAM_DRIVES)

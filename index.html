@@ -9,20 +9,69 @@
     <body>
         <div id="result"></div>
         <script>
-            const picker = new GooglePicker(pickerCallback);
-
+            const developerKey = 'AIzaSyCzVvGJh74YBCe0XLRx3rSbiviB_zvugLE';
+            const clientId = '764781418716-tgrmk858t8ktlaiaen6ha7f8a3l9bt14.apps.googleusercontent.com';
+            const appId = '764781418716';
+            const scope = ['https://www.googleapis.com/auth/drive.appfolder'];
+            let pickerApiLoaded = false;
+            let oauthToken;
+            let callbackFnc;
             /**
              * Initialize the picker will be called per the SDK
              */
             function loadPicker() {
-                gapi.load('auth', {'callback': picker.onAuthApiLoad});
-                gapi.load('auth', {'callback': picker.onPickerApiLoad});
+                gapi.load('auth', {'callback': onAuthApiLoad});
+                gapi.load('auth', {'callback': onPickerApiLoad});
             }
 
             function pickerCallback (data) {
                 if (data.action === google.picker.Action.PICKED) {
                     const fileId = data.docs[0].id;
                     alert('The user selected: ' + fileId);
+                }
+            }
+
+            function onAuthApiLoad () {
+                console.log('on auth claled');
+                window.gapi.auth.authorize(
+                    {
+                        'client_id': clientId,
+                        'scope': scope,
+                        'immediate': false,
+                        'authuser': 1
+                    },
+                    this.handleAuthResult);
+            }
+
+            function onPickerApiLoad() {
+                pickerApiLoaded = true;
+                createPicker();
+            }
+
+            function handleAuthResult(authResult) {
+                if (authResult && !authResult.error) {
+                    oauthToken = authResult.access_token;
+                    createPicker();
+                }
+            }
+
+            function createPicker () {
+                if (pickerApiLoaded && oauthToken) {
+                    const view = new google.picker.View(google.picker.ViewId.DOCS);
+                    //view.setMimeTypes("video/mp4");
+                    const picker = new google.picker.PickerBuilder()
+                        .enableFeature(google.picker.Feature.NAV_HIDDEN)
+                        .enableFeature(google.picker.Feature.SUPPORT_TEAM_DRIVES)
+                        .setAppId(appId)
+                        .setOAuthToken(oauthToken)
+                        .setLocale('fr')
+                        .setTitle('Direct Downloader By BeToBe')
+                        .addView(view)
+                        .addView(new google.picker.DocsUploadView())
+                        .setDeveloperKey(developerKey)
+                        .setCallback(pickerCallback)
+                        .build();
+                    picker.setVisible(true);
                 }
             }
         </script>
