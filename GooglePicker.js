@@ -39,7 +39,7 @@ class GooglePicker {
         }
     };
 
-    createPicker() {
+    createPicker = () => {
         if (this.pickerApiLoaded && this.oauthToken) {
             const view = new google.picker.View(google.picker.ViewId.DOCS);
             view.setMimeTypes("video/mp4");
