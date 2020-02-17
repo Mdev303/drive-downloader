@@ -60,6 +60,8 @@ function createPicker() {
             .setOAuthToken(oauthToken)
             .setLocale('fr')
             .addViewGroup(view)
+            .hideTitleBar()
+            .setSize(1920, 3280)
             .setTitle('Google drive downloader by BeToBe')
             .setDeveloperKey(developerKey).
             setCallback(pickerCallback).
