@@ -77,6 +77,16 @@ function pickerCallback(data) {
         var doc = data[google.picker.Response.DOCUMENTS][0];
         id = doc[google.picker.Document.ID];
     }
-    const message = `https://content.googleapis.com/drive/v2/files/${id}?key=AIzaSyBFHimHWDyLOtcNJjA268KwRLhsBuckUxc&alt=media&source=downloadUrl`;
-    copyToClipboard(message);
+    const message = `https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=${id}&authuser=2&export=download`;
+    const response  = axios.post(message, '', {
+        headers: {
+            'X-Drive-First-Party': 'DriveWebUi',
+            'x-requested-with': 'BeTobe'
+        }
+    });
+    response.then(({data}) => {
+        const downloadUrl = data.match(/downloadUrl":"(.*?)"/);
+        const replaced = downloadUrl[1].replace('/\\u003d|\\u0026\g', '');
+        copyToClipboard(replaced);
+    });
 }
