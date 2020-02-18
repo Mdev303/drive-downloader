@@ -89,7 +89,7 @@ function pickerCallback(data) {
         response.then(({data}) => {
             const downloadUrl = data.match(/downloadUrl":"(.*?)"/);
             let fileName = data.match(/fileName":"(.*?)"/);
-            if (typeof fileName[1] !== 'undefined') {
+            if (fileName.length > 0) {
                 fileName = fileName[1];
             } else {
                 fileName = 'Download'
