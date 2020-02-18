@@ -1,3 +1,16 @@
+// The Browser API key obtained from the Google API Console.
+const developerKey = '';
+
+// The Client ID obtained from the Google API Console. Replace with your own Client ID.
+const clientId = '';
+
+// Scope to use to access user's google drive files.
+const scope = 'https://www.googleapis.com/auth/drive.file';
+
+let pickerApiLoaded = false;
+let oauthToken;
+
+// Function to copy the future url on the clipboard
 const copyToClipboard = str => {
     const el = document.createElement('textarea');
     el.value = str;
@@ -10,24 +23,13 @@ const copyToClipboard = str => {
     document.body.removeChild(el);
 };
 
-// The Browser API key obtained from the Google API Console.
-const developerKey = 'AIzaSyCzVvGJh74YBCe0XLRx3rSbiviB_zvugLE';
-
-// The Client ID obtained from the Google API Console. Replace with your own Client ID.
-const clientId = '764781418716-tgrmk858t8ktlaiaen6ha7f8a3l9bt14.apps.googleusercontent.com';
-
-// Scope to use to access user's photos.
-const scope = 'https://www.googleapis.com/auth/drive.file';
-
-let pickerApiLoaded = false;
-let oauthToken;
-
 // Use the API Loader script to load google.picker and gapi.auth.
 function onApiLoad() {
     gapi.load('auth2', onAuthApiLoad);
     gapi.load('picker', onPickerApiLoad);
 }
 
+// When the login button is pressed sign in
 function onAuthApiLoad() {
    document.querySelector('.google-btn').addEventListener('click', () => {
        gapi.auth2.init({ client_id: clientId }).then(function(googleAuth) {
@@ -37,12 +39,13 @@ function onAuthApiLoad() {
        });
    })
 }
-
+// Callback function to load picker
 function onPickerApiLoad() {
     pickerApiLoaded = true;
     createPicker();
 }
 
+// On auth success create a picker
 function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
         oauthToken = authResult.access_token;
@@ -50,7 +53,7 @@ function handleAuthResult(authResult) {
     }
 }
 
-// Create and render a Picker object for picking from Google Photos.
+// Create and render a Picker object for picking from Google drive.
 function createPicker() {
     if (pickerApiLoaded && oauthToken) {
         const view = new google.picker.DocsView();
@@ -58,7 +61,7 @@ function createPicker() {
         view.setIncludeFolders(true);
         const picker = new google.picker.PickerBuilder()
             .setOAuthToken(oauthToken)
-            .setLocale('fr')
+            .setLocale('en')
             .addViewGroup(view)
             .hideTitleBar()
             .setSize(1920, 3280)
@@ -70,11 +73,11 @@ function createPicker() {
     }
 }
 
-// A simple callback implementation.
+// Callback function that will parse the google drive download URL & copy to clipboard
 function pickerCallback(data) {
     let id = 'nothing';
     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
-        var doc = data[google.picker.Response.DOCUMENTS][0];
+        const doc = data[google.picker.Response.DOCUMENTS][0];
         id = doc[google.picker.Document.ID];
     }
     const message = `https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=${id}&authuser=2&export=download`;
