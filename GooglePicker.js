@@ -89,7 +89,11 @@ function pickerCallback(data) {
         response.then(({data}) => {
             const downloadUrl = data.match(/downloadUrl":"(.*?)"/);
             let fileName = data.match(/fileName":"(.*?)"/);
-            fileName = fileName[1];
+            if (fileName[1] !== null) {
+                fileName = fileName[1];
+            } else {
+                fileName = 'Download'
+            }
             const replaced = downloadUrl[1].replace('/\\u003d|\\u0026\g', '');
             copyToClipboard(replaced);
             document.getElementById('text-container').style.display = 'block';
