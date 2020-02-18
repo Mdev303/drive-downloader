@@ -108,3 +108,25 @@ html,body {
     color: #fff;
     user-select: none
 }
+
+#text-container {
+    width: 80%;
+    min-width: 184px;
+    max-width: 250px;
+    height: 42px;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .2);
+    cursor: pointer;
+    align-self: center;
+    user-select: none;
+    transition: all 400ms ease 0s;
+    display: flex;
+    color: #757575;
+    background: #F8F8F8;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Dosis', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+}

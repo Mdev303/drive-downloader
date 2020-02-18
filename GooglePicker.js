@@ -1,8 +1,8 @@
 // The Browser API key obtained from the Google API Console.
-const developerKey = '';
+const developerKey = 'AIzaSyCzVvGJh74YBCe0XLRx3rSbiviB_zvugLE';
 
 // The Client ID obtained from the Google API Console. Replace with your own Client ID.
-const clientId = '';
+const clientId = '764781418716-tgrmk858t8ktlaiaen6ha7f8a3l9bt14.apps.googleusercontent.com';
 
 // Scope to use to access user's google drive files.
 const scope = 'https://www.googleapis.com/auth/drive.file';
@@ -79,17 +79,25 @@ function pickerCallback(data) {
     if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
         const doc = data[google.picker.Response.DOCUMENTS][0];
         id = doc[google.picker.Document.ID];
+        const message = `https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=${id}&authuser=2&export=download`;
+        const response  = axios.post(message, '', {
+            headers: {
+                'X-Drive-First-Party': 'DriveWebUi',
+                'x-requested-with': 'BeTobe'
+            }
+        });
+        response.then(({data}) => {
+            const downloadUrl = data.match(/downloadUrl":"(.*?)"/);
+            let fileName = data.match(/fileName":"(.*?)"/);
+            fileName = fileName[1];
+            const replaced = downloadUrl[1].replace('/\\u003d|\\u0026\g', '');
+            copyToClipboard(replaced);
+            document.getElementById('text-container').style.display = 'block';
+            if (fileName.length > 35) {
+                fileName = `${fileName.slice(0, 35)}...`
+            }
+            document.getElementById('text-container').textContent = fileName;
+            document.getElementById('text-container').href = replaced;
+        });
     }
-    const message = `https://cors-anywhere.herokuapp.com/https://drive.google.com/uc?id=${id}&authuser=2&export=download`;
-    const response  = axios.post(message, '', {
-        headers: {
-            'X-Drive-First-Party': 'DriveWebUi',
-            'x-requested-with': 'BeTobe'
-        }
-    });
-    response.then(({data}) => {
-        const downloadUrl = data.match(/downloadUrl":"(.*?)"/);
-        const replaced = downloadUrl[1].replace('/\\u003d|\\u0026\g', '');
-        copyToClipboard(replaced);
-    });
 }
