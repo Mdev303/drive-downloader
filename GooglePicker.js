@@ -73,7 +73,7 @@ function createPicker() {
 // A simple callback implementation.
 function pickerCallback(data) {
     let id = 'nothing';
-    if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+    if (data[google.picker.Response.ACTION] === google.picker.Action.PICKED) {
         var doc = data[google.picker.Response.DOCUMENTS][0];
         id = doc[google.picker.Document.ID];
     }
