@@ -19,6 +19,7 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/gapi": "0.0.39",
-    "@types/google.picker": "0.0.34"
+    "@types/google.picker": "0.0.34",
+    "http-server": "^0.12.3"
   }
 }
