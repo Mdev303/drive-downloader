@@ -1,8 +1,8 @@
 // The Browser API key obtained from the Google API Console.
-const developerKey = 'AIzaSyCzVvGJh74YBCe0XLRx3rSbiviB_zvugLE';
+const developerKey = 'mmGchmTw9KWU2HjteTZdvVih';
 
 // The Client ID obtained from the Google API Console. Replace with your own Client ID.
-const clientId = '764781418716-tgrmk858t8ktlaiaen6ha7f8a3l9bt14.apps.googleusercontent.com';
+const clientId = '898962898453-89d9a4dt2d5rtgf8kf5uir1pqgaihr0o.apps.googleusercontent.com';
 
 // Scope to use to access user's google drive files.
 const scope = 'https://www.googleapis.com/auth/drive.file';
